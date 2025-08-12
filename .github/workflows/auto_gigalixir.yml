@@ -40,11 +40,11 @@ jobs:
           fi
 
       - name: Install Gigalixir CLI
-        if: steps.health_check.outputs.status == '200'
+        if: steps.health_check.outputs.status != '200'
         run: |
           pip install gigalixir
 
       - name: Scale app
-        if: steps.health_check.outputs.status == '200'
+        if: steps.health_check.outputs.status != '200'
         run: |
           gigalixir ps:scale -a "${{ env.APP_NAME }}" -r 1
